@@ -1,0 +1,18 @@
+﻿@model TraineeViewModel
+
+<div style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 500px; margin: 0 auto;">
+    <img src="~/images/@Model.TraineeImage" width="150" />
+    <h2>Trainee: @Model.TraineeName</h2>
+    <h2>Department: @Model.DepartmentName <a href="/Department/Details/@Model.DepartmentId">Details</a></h2>
+    <h2 style="color:@Model.Color">ITI Branches</h2>
+    <h3 style="color:@Model.Color">@Model.Advertisement</h3>
+    <select>
+        @foreach (var item in Model.Branches)
+        {
+            <option>@item</option>
+        }
+    </select>
+    <p>Temperature: @Model.Temp°C</p>
+</div>
+
+<a href="/Trainee/ShowAll" class="btn btn-primary">Back to show all</a>

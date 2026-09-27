@@ -1,0 +1,36 @@
+﻿@model Trainee
+@inject WebApplication3.Models.ITIContext context
+
+<h1>Add Trainee</h1>
+
+@{
+    bool isSubmittedAttempt = Model != null;
+    bool invalid = string.IsNullOrWhiteSpace(Model?.Name)
+        || string.IsNullOrWhiteSpace(Model?.Image)
+        || (Model?.Grade ?? 0) <= 0
+        || (Model?.DepartmentId ?? 0) == 0;
+}
+
+@if (isSubmittedAttempt && invalid)
+{
+    <script>alert('Please fill in the required fields correctly.');</script>
+}
+
+<form method="get" action="/Trainee/SaveAdd">
+    <div><label>Name</label><input name="Name" class="form-control" value="@Model?.Name" /></div>
+    <div><label>Image</label><input name="Image" class="form-control" value="@Model?.Image" /></div>
+    <div><label>Phone</label><input name="PhoneNumber" class="form-control" value="@Model?.PhoneNumber" /></div>
+    <div><label>Grade</label><input name="Grade" class="form-control" value="@Model?.Grade" /></div>
+
+    <div>
+        <label>Department</label>
+        <select name="DepartmentId" class="form-control">
+            @foreach (var dept in context.Departments.ToList())
+            {
+                <option value="@dept.Id" selected="@(Model?.DepartmentId == dept.Id)">@dept.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Add</button>
+</form>

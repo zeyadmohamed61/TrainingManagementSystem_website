@@ -1,0 +1,25 @@
+﻿@model Department
+
+<h1>Add Department</h1>
+
+@{
+    bool isSubmittedAttempt = Model != null;
+    bool invalid = string.IsNullOrWhiteSpace(Model?.Name)
+        || string.IsNullOrWhiteSpace(Model?.Manager);
+}
+
+@if (isSubmittedAttempt && invalid)
+{
+    <script>alert('Please fill in the required fields correctly.');</script>
+}
+
+<form method="get" action="/Department/SaveAdd">
+    <div>
+        <label>Name</label><input name="Name" class="form-control" value="@Model?.Name" />
+    </div>
+    <div>
+        <label>Manager</label><input name="Manager" class="form-control" value="@Model?.Manager" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Add</button>
+</form>

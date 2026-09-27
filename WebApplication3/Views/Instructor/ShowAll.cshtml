@@ -1,0 +1,36 @@
+﻿@model List<Instructor>
+
+<h1>Instructors</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Salary</td>
+                <td><a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Details</a></td>
+                <td><a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a></td>
+                <td>
+                    <form asp-controller="Instructor" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this instructor?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Instructor/Add" class="btn btn-success mb-3">Add New Instructor</a>

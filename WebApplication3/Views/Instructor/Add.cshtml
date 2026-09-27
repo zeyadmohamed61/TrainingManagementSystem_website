@@ -1,0 +1,58 @@
+﻿@model Instructor
+@inject WebApplication3.Models.ITIContext context
+
+<h1>Add Instructor</h1>
+
+@{
+    bool invalid = string.IsNullOrWhiteSpace(Model?.Name)
+        || string.IsNullOrWhiteSpace(Model?.Email)
+        || (Model?.DepartmentId ?? 0) == 0
+        || (Model?.CourseId ?? 0) == 0;
+}
+
+@if (invalid && Model != null)
+{
+    <script>alert('Please fill in the required fields correctly.');</script>
+}
+
+<form method="get" action="/Instructor/SaveAdd">
+    <div>
+        <label>Name</label><input name="Name" class="form-control" value="@Model?.Name" />
+        </div>
+    <div>
+        <label>Image</label><input name="Image" class="form-control" value="@Model?.Image" />
+        </div>
+    <div>
+        <label>Address</label><input name="Address" class="form-control" value="@Model?.Address" />
+    </div>
+    <div>
+        <label>Email</label><input name="Email" class="form-control" value="@Model?.Email" />
+    </div>
+    <div>
+        <label>Phone</label><input name="PhoneNumber" class="form-control" value="@Model?.PhoneNumber" />
+    </div>
+    <div>
+        <label>Salary</label><input name="Salary" class="form-control" value="@Model?.Salary" />
+    </div>
+
+    <div>
+        <label>Department</label>
+        <select name="DepartmentId" class="form-control">
+            @foreach (var dept in context.Departments.ToList())
+            {
+                <option value="@dept.Id" selected="@(Model?.DepartmentId == dept.Id)">@dept.Name</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label>Course</label>
+        <select name="CourseId" class="form-control">
+            @foreach (var course in context.Courses.ToList())
+            {
+                <option value="@course.Id" selected="@(Model?.CourseId == course.Id)">@course.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Add</button>
+</form>

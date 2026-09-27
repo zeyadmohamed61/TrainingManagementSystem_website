@@ -1,0 +1,51 @@
+﻿@model CourseDeptViewModel
+
+<h1>Edit @Model.Name</h1>
+
+<form asp-action="SaveEdit" asp-controller="Course" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+
+    <div>
+        <label asp-for="Degree"></label>
+        <input class="form-control" asp-for="Degree" />
+    </div>
+
+    <div>
+        <label asp-for="MinDegree"></label>
+        <input class="form-control" asp-for="MinDegree" />
+    </div>
+
+    <div>
+        <label asp-for="CourseHours"></label>
+        <input class="form-control" asp-for="CourseHours" />
+    </div>
+
+    <div>
+        <label>Department</label>
+        <select name="DepartmentId" class="form-control">
+            @foreach (var dept in Model.DepartmentList)
+            {
+                if (Model.DepartmentId == dept.Id)
+                {
+                    <option value="@dept.Id" selected>@dept.Name</option>
+                }
+                else
+                {
+                    <option value="@dept.Id">@dept.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">
+        Save
+    </button>
+
+    <a asp-action="ShowAll" asp-controller="Course">Back To List</a>
+    <a asp-action="Details" asp-controller="Course" asp-route-id="@Model.Id">Go To Course Details</a>
+</form>

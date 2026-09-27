@@ -1,0 +1,53 @@
+﻿@model CourseResultViewModel
+
+<h1>Edit Course Result #@Model.Id</h1>
+
+<form asp-action="SaveEdit" asp-controller="CourseResult" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Degree"></label>
+        <input class="form-control" asp-for="Degree" />
+    </div>
+
+    <div>
+        <label>Course</label>
+        <select name="CourseId" class="form-control">
+            @foreach (var course in Model.CourseList)
+            {
+                if (Model.CourseId == course.Id)
+                {
+                    <option value="@course.Id" selected>@course.Name</option>
+                }
+                else
+                {
+                    <option value="@course.Id">@course.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Trainee</label>
+        <select name="TraineeId" class="form-control">
+            @foreach (var trainee in Model.TraineeList)
+            {
+                if (Model.TraineeId == trainee.Id)
+                {
+                    <option value="@trainee.Id" selected>@trainee.Name</option>
+                }
+                else
+                {
+                    <option value="@trainee.Id">@trainee.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">
+        Save
+    </button>
+
+    <a asp-action="ShowAll" asp-controller="CourseResult">Back To List</a>
+    <a asp-action="Details" asp-controller="CourseResult" asp-route-id="@Model.Id">Go To Course Result Details</a>
+</form>

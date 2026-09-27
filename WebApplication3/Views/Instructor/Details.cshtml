@@ -1,0 +1,18 @@
+﻿@model Instructor
+
+<div class="card mx-auto text-center shadow-sm p-3" style="max-width: 400px;">
+    <img src="~/images/@Model.Image" class="rounded-circle mx-auto mb-3" width="120" height="120" style="object-fit: cover;" alt="@Model.Name" />
+    <h3>@Model.Name</h3>
+    <p class="text-muted">@Model.Department?.Name &bull; @Model.Course?.Name</p>
+
+    <ul class="list-group list-group-flush text-start mb-3">
+        <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
+        <li class="list-group-item"><strong>Address:</strong> @Model.Address</li>
+        <li class="list-group-item"><strong>Phone:</strong> @Model.PhoneNumber</li>
+        <li class="list-group-item"><strong>Salary:</strong> $@Model.Salary</li>
+        <li class="list-group-item"><strong>Department:</strong> @Model.Department?.Name</li>
+        <li class="list-group-item"><strong>Course:</strong> @Model.Course?.Name</li>
+    </ul>
+
+    <a asp-action="ShowAll" class="btn btn-primary btn-sm">Back to list</a>
+</div>

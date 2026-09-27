@@ -1,0 +1,103 @@
+﻿@model InstructorDeptViewModel
+
+<h1>Edit @Model.Name</h1>
+
+<form asp-action="SaveEdit" asp-controller="Instructor" method="post">
+    @* Hidden id ensures model binder sets InstructorVM.Id on POST *@
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+
+    <div>
+        <label asp-for="Image"></label>
+        <input class="form-control" asp-for="Image" />
+    </div>
+
+    <div>
+        <label asp-for="Address"></label>
+        <input class="form-control" asp-for="Address" />
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input class="form-control" asp-for="Email" />
+    </div>
+
+    <div>
+        <label asp-for="PhoneNumber"></label>
+        <input class="form-control" asp-for="PhoneNumber" />
+    </div>
+
+    <div>
+        <label asp-for="Salary"></label>
+        <input class="form-control" asp-for="Salary" />
+    </div>
+
+    <div>
+        <label>Department</label>
+        @* Manual select without asp-items so option values come from item.Id *@
+        <select name="DepartmentId" id="deptSelect" class="form-control" onchange="filterCourses()">
+            @foreach (var dept in Model.DepartmentList)
+            {
+                if (Model.DepartmentId == dept.Id)
+                {
+                    <option value="@dept.Id" selected>@dept.Name</option>
+                }
+                else
+                {
+                    <option value="@dept.Id">@dept.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Course</label>
+        <select name="CourseId" id="courseSelect" class="form-control">
+            @foreach (var course in Model.CourseList)
+            {
+                if (Model.CourseId == course.Id)
+                {
+                    <option value="@course.Id" data-dept="@course.DepartmentId" selected>@course.Name</option>
+                }
+                else
+                {
+                    <option value="@course.Id" data-dept="@course.DepartmentId">@course.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">
+        Save
+    </button>
+
+    <a asp-action="ShowAll" asp-controller="Instructor">Back To List</a>
+    <a asp-action="Details" asp-controller="Instructor" asp-route-id="@Model.Id">Go To Instructor Details</a>
+</form>
+
+<script>
+function filterCourses() {
+    let selectedDept = document.getElementById("deptSelect").value;
+    let courseSelect = document.getElementById("courseSelect");
+    let firstVisible = null;
+
+    for (let option of courseSelect.options) {
+        let matches = (option.getAttribute("data-dept") === selectedDept);
+        option.hidden = !matches;
+
+        if (matches && !firstVisible) {
+            firstVisible = option;
+        }
+    }
+
+    if (firstVisible) {
+        courseSelect.value = firstVisible.value;
+    }
+}
+
+filterCourses();
+</script>

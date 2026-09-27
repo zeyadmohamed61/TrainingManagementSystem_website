@@ -1,0 +1,18 @@
+﻿<div class="d-flex flex-column align-items-center text-center">
+    <h2>@ViewData["Name"]</h2>
+    <h2>Id: @ViewData["Id"]</h2>
+    <h2>Manager: @ViewData["Manager"]</h2>
+    <br />
+    <h2>@ViewData["Message"]</h2>
+    <h2>@ViewBag.Temperature + 2</h2>
+    <h2>@(ViewBag.Temperature + 2)</h2>
+
+    <select class>
+        @foreach (var item in ViewBag.Branches)
+        {
+            <option>@item</option>
+        }
+    </select>
+</div>
+
+<a href="/Department/ShowAll" class="btn btn-primary">Back to show all</a>

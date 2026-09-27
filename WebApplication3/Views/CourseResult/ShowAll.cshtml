@@ -1,0 +1,28 @@
+﻿@model List<CourseResult>
+
+<h1>Course Results</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Id</th><th>Trainee</th><th>Course</th><th>Degree</th><th></th><th></th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Trainee?.Name</td>
+                <td>@item.Course?.Name</td>
+                <td>@item.Degree</td>
+                <td><a href="/CourseResult/Details/@item.Id" class="btn btn-primary btn-sm">Details</a></td>
+                <td><a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a></td>
+                <td>
+                    <form asp-controller="CourseResult" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this course result?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/CourseResult/Add" class="btn btn-success mb-3">Add New Course Result</a>

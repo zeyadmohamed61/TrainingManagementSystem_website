@@ -1,0 +1,21 @@
+﻿@model Course
+
+<div class="container my-4" style="max-width: 600px;">
+    <h2 class="border-bottom pb-2">@Model.Name</h2>
+    
+    <div class="my-3 fs-5">
+        <p class="mb-1"><strong>Department:</strong> @Model.Department?.Name</p>
+        <p class="mb-1"><strong>Degree:</strong> @Model.Degree (Min: @Model.MinDegree)</p>
+        <p class="mb-1"><strong>Hours:</strong> @Model.CourseHours</p>
+    </div>
+
+    <h4 class="mt-4">Instructors</h4>
+    <ul class="list-group mb-4">
+        @foreach (var i in Model.Instructors)
+        {
+            <li>@i.Name</li>
+        }
+    </ul>
+
+    <a href="/Course/ShowAll" class="btn btn-primary btn-sm">← Back to list</a>
+</div>

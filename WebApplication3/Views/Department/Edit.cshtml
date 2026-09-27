@@ -1,0 +1,24 @@
+﻿@model Department
+
+<h1>Edit @Model.Name</h1>
+
+<form asp-action="SaveEdit" asp-controller="Department" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+
+    <div>
+        <label asp-for="Manager"></label>
+        <input class="form-control" asp-for="Manager" />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">
+        Save
+    </button>
+
+    <a asp-action="ShowAll" asp-controller="Department">Back To List</a>
+    <a asp-action="Details" asp-controller="Department" asp-route-id="@Model.Id">Go To Department Details</a>
+</form>

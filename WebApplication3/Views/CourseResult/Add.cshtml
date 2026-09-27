@@ -1,0 +1,44 @@
+﻿@model CourseResult
+@inject WebApplication3.Models.ITIContext context
+
+<h1>Add Course Result</h1>
+
+@{
+    bool isSubmittedAttempt = Model != null;
+    bool invalid = (Model?.Degree ?? 0) <= 0
+        || (Model?.CourseId ?? 0) == 0
+        || (Model?.TraineeId ?? 0) == 0;
+}
+
+@if (isSubmittedAttempt && invalid)
+{
+    <script>alert('Please fill in the required fields correctly.');</script>
+}
+
+<form method="get" action="/CourseResult/SaveAdd">
+    <div>
+        <label>Degree</label><input name="Degree" class="form-control" value="@Model?.Degree" />
+    </div>
+
+    <div>
+        <label>Course</label>
+        <select name="CourseId" class="form-control">
+            @foreach (var course in context.Courses.ToList())
+            {
+                <option value="@course.Id" selected="@(Model?.CourseId == course.Id)">@course.Name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Trainee</label>
+        <select name="TraineeId" class="form-control">
+            @foreach (var trainee in context.Trainees.ToList())
+            {
+                <option value="@trainee.Id" selected="@(Model?.TraineeId == trainee.Id)">@trainee.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Add</button>
+</form>
